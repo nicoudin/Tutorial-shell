@@ -80,7 +80,7 @@ __Shell decide si un path es absoluto o no viendo el primer caracter. Si empieza
 
 Vemos la estructura de nuestro directorios para ahcer los ejemplos.
 
-![alt text](image.png)
+![alt text](./img/image-1.png)
 
 ```
 Desde /home/nicoudin/ podemos ver el contenido de Seassons haciendo

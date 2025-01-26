@@ -28,6 +28,8 @@ Indice
 4. [Batch Processing]()
     - [Como se almacena la informacion]()
     - [Loops in Bash]()
+    - [Crear un .sh]()
+        - [Pasar parametros a un .sh]()
 
 
 ## 1. Manipulating Files and Directories.
@@ -539,3 +541,77 @@ do
     tail -n 1 $filename;
 done    
 ```
+
+### Creación de archivos .sh    
+
+Los archivos .sh nos ayudan a ejecutar comandos desde una interface en el momento que querramos.
+
+Por ejemplo. 
+
+Creamos un archivo  .sh que copie en orto archivo llamado nombres todos los nombres de los archivos que están ene l directorio __backups__
+
+```bash
+filename=nombres.txt
+cut -d , -f 1 *.txt > $filename
+```
+
+Lo llamamos haciendo
+
+```bash
+bash miproceso.sh
+```
+
+Otro ejemplo. En este ejemplo en lugar de crear un archivo dentro del .sh hacemos que el resultado de la eejcución del -sh se guarde en un file.
+
+```shell
+filename=mifile.out
+bash proceso.sh > $filename
+```
+
+dentro de proceso.sh escribimos
+
+```shell
+cut -d , -f 5 winter.txt | grep -v nacimiento | sort | uniq -c
+```
+
+### Cómo pasar parametros a un .sh
+
+Podemos pasar parametros a un script de escribiendo dentro del .sh _$@_
+Lo que va a hacer bash es reemplazar todos los $@ por lo que pasemos cuando ejecutamos:
+
+```bash
+bash miproecso.sh parametroparapasar
+```
+
+contenido de miproceso.sh
+
+```shell
+echo $@ #Se reemplaza con parametroparapasar
+```
+
+Por ejemplo queremos hacer un proecso .sh que cuente el numero total de registros en los archvios que se le pasan
+
+```shell
+bash procesoCuentaRegistros.sh *.txt > total.out
+```
+
+```shell
+cut -d , -f 1 $@ | wc -l 
+```
+
+Tambien podemos referencias parametros multiples dentro de un archivo .sh usando las posiciones.
+
+Ejemplo: __queremos abrir un archivo, leer solo la columna edades y mostrar N cantidad de registros__
+
+El archivo .sh sería así.
+
+```shell
+cut -d , -f $2 $1 | head -n $3 
+```
+
+Lo ejecutamos, queremos procesar el archivo winter.txt ($1) , que tome la columna edades -3 ($2) y que solo muestre los primero 4 regsitros ($3)
+
+```shell
+bash procesoParametros.sh winter.txt 3 4
+```
+
